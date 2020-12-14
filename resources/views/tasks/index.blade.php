@@ -10,8 +10,8 @@
 
     <!-- 新任務的表單 -->
         <form action="/task" method="POST" class="form-horizontal">
-        @csrf
-        @method('POST')
+        {{ csrf_field() }}
+
         <!-- 任務名稱 -->
             <div class="form-group">
                 <label for="task-name" class="col-sm-3 control-label">任務</label>
@@ -32,7 +32,7 @@
         </form>
     </div>
 
-    <!-- 代辦：目前任務 -->
+    <!-- 目前任務 -->
     @if (count($tasks) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -57,23 +57,15 @@
                                 <div>{{ $task->name }}</div>
                             </td>
 
-                            <td>
-                                <!-- 代辦：刪除按鈕 -->
-                                <tr>
-                                    <!-- 任務名稱 -->
-                                    <td class="table-text">
-                                        <div>{{ $task->name }}</div>
-                                    </td>
 
-                                    <!-- 刪除按鈕 -->
-                                    <td>
-                                        <form action="/task/{{ $task->id }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">刪除任務</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                            <!-- 刪除按鈕 -->
+                            <td>
+                                <form action="/task/{{ $task->id }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+
+                                    <button type="submit" class="btn btn-danger">刪除任務</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
