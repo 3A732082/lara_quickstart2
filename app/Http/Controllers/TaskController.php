@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class TaskController extends Controller
 {
     /**
@@ -14,7 +14,10 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        return view('tasks.index');
+        $tasks = auth()->user()->tasks;
+        return view('tasks.index', [
+            'tasks' => $tasks,
+        ]);
     }
 
     public function __construct()
